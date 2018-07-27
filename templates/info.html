@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Info
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Directions</h2>
+            <p>Pinocchio's is located on Winthrop street right near the corner of JFK Street.
+            We are 2 blocks from the Harvard Square T stop.</p>
+            <p>Do not park across the street from us! It is a tow zone.</p>
+            <address id="location">74 Winthrop Street</br>
+            Harvard Square</br>
+            617-876-4897</address>
+            <iframe width="100%" height="250px" frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJQ_pITl1344kR458emYJ5sso&key=AIzaSyDKBIiggiJkC6uvx4QjkWRg8RU8ohKcppM"></iframe>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Hours</h2>
+            <table id="hours">
+                <tr>
+                    <td>Monday</td>
+                    <td>11:00 AM - 1:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>11:00 AM - 1:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>11:00 AM - 1:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>11:00 AM - 1:00 AM</td>
+                </tr>
+                <tr>
+                    <td>Friday *</td>
+                    <td>11:00 AM - 2:30 AM</td>
+                </tr>
+                <tr>
+                    <td>Saturday *</td>
+                    <td>11:00 AM - 2:30 AM</td>
+                </tr>
+                <tr>
+                    <td>Sunday</td>
+                    <td>1:00 PM - 12 midnight</td>
+                </tr>
+            </table>
+            <p></p>
+            <p><i>* Please note that when the undergraduate students are not in session we close on Friday and Saturday night at 1:00 am instead of 2:30 am.</i></p>
+        </div>
+    </div>
+{% endblock %}

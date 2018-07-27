@@ -1,0 +1,72 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto+Slab');
+
+$darkgreen: #1E441E;
+$darkgrey: #383838;
+$lightgrey: #C6C6C2;
+$midgrey: #848481;
+
+/* Italian Flag */
+$green: #008C45;    /* Fern Green */
+$white: #F4F5F0;    /* Bright White */
+$red: #CD212A;    /* Flame Scarlet */
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: $darkgrey;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+}
+
+.container {
+    padding: 0px;
+}
+.row {
+    padding-bottom: 30px;
+}
+
+#headerrow {
+    background-color: $green;
+    margin: 40px 0px 0px 0px;
+    height: 200px;
+}
+#headertext {
+    color: $white;
+    padding: 40px;
+}
+
+#homerow {
+    background-image: url(https://i.pinimg.com/originals/91/04/b6/9104b6fc5a4f4764c9984a98bd22ad43.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: $green;
+
+    margin: 10vh;
+    height: 60vh;
+}
+#hometext {
+    color: $white;
+}
+
+#content {
+    background-color: $white;
+}
+
+#footer {
+    background-color: $red;
+    margin: 0px 0px 40px 0px;
+    height: 200px;
+}
+
+[class*="col-"] {
+    margin: 0px;
+    padding: 40px;
+}
+
+#hours, #location {
+    margin: auto;
+}

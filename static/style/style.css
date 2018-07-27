@@ -1,0 +1,57 @@
+/* Font */
+@import url("https://fonts.googleapis.com/css?family=Lato|Roboto+Slab");
+/* Italian Flag */
+/* Fern Green */
+/* Bright White */
+/* Flame Scarlet */
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #383838; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', serif;
+  text-align: center; }
+
+.container {
+  padding: 0px; }
+
+.row {
+  padding-bottom: 30px; }
+
+#headerrow {
+  background-color: #008C45;
+  margin: 40px 0px 0px 0px;
+  height: 200px; }
+
+#headertext {
+  color: #F4F5F0;
+  padding: 40px; }
+
+#homerow {
+  background-image: url(https://i.pinimg.com/originals/91/04/b6/9104b6fc5a4f4764c9984a98bd22ad43.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #008C45;
+  margin: 10vh;
+  height: 60vh; }
+
+#hometext {
+  color: #F4F5F0; }
+
+#content {
+  background-color: #F4F5F0; }
+
+#footer {
+  background-color: #CD212A;
+  margin: 0px 0px 40px 0px;
+  height: 200px; }
+
+[class*="col-"] {
+  margin: 0px;
+  padding: 40px; }
+
+#hours, #location {
+  margin: auto; }
+
+/*# sourceMappingURL=style.css.map */
