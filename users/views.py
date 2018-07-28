@@ -6,6 +6,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+def account(request):
+    if not request.user.is_authenticated:
+        return render(request, "orders/menu.html")
+
+    return render(request, "users/account.html", {"message": None})
+
 def login_view(request):
     if request.user.is_authenticated:
         return render(request, "orders/menu.html")
@@ -16,7 +22,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return render(request, "orders/menu.html")
+            return render(request, "users/account.html", {"message": "You are logged in."})
         else:
             return render(request, "users/login.html", {"message": "Invalid credentials."})
     else:
@@ -77,7 +83,7 @@ def register(request):
 
         # Log user in.
         login(request, user)
-        return render(request, "orders/menu.html")
+        return render(request, "users/account.html", {"message": "You are registered now."})
     # If method is 'GET' (or any other)
     else:
         return render(request, "users/register.html")
