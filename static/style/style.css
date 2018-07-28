@@ -4,8 +4,15 @@
 /* Fern Green */
 /* Bright White */
 /* Flame Scarlet */
+.bg-darkgreen {
+  background-color: #1E441E; }
+
 body {
   font-family: 'Lato', sans-serif;
+  background-image: url("../ingredientsbackground.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
   background-color: #383838; }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,7 +20,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center; }
 
 .container {
-  padding: 0px; }
+  padding: 0px;
+  box-shadow: 0px 0px 20px 5px black; }
 
 .row {
   padding-bottom: 30px; }
@@ -28,10 +36,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 40px; }
 
 #homerow {
-  background-image: url(https://i.pinimg.com/originals/91/04/b6/9104b6fc5a4f4764c9984a98bd22ad43.jpg);
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
   background-color: #008C45;
   margin: 10vh;
   height: 60vh; }
@@ -43,9 +47,17 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #F4F5F0; }
 
 #footer {
-  background-color: #CD212A;
+  background-color: #C6C6C2;
   margin: 0px 0px 40px 0px;
-  height: 200px; }
+  height: 200px;
+  color: #848481; }
+
+/* Center form, make not as wide */
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto; }
 
 [class*="col-"] {
   margin: 0px;
