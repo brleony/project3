@@ -43,13 +43,15 @@ h1, h2, h3, h4, h5, h6 {
     height: 200px;
 }
 #headertext {
-    color: $white;
     padding: 40px;
 }
+#headerlink {
+    color: $white;
+}
 
-#homerow {
+#homecontainer {
     background-color: $green;
-    margin: 10vh;
+    margin-top: 10vh;
     height: 60vh;
 }
 #hometext {
@@ -73,12 +75,30 @@ form {
     margin-right: auto;
     width: auto;
 }
+.message {
+    font-weight: 600;
+    color: $red;
+}
 
 [class*="col-"] {
     margin: 0px;
     padding: 40px;
 }
 
+/* Links */
+.container a:link, .container a:visited {
+    color: $green;
+
+}
+.container a:hover, .container a:active {
+    color: $darkgreen;
+}
+
 #hours, #location {
     margin: auto;
+}
+
+::selection {
+    color: $white;
+    background-color: $red;
 }

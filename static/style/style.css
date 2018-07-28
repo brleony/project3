@@ -32,12 +32,14 @@ h1, h2, h3, h4, h5, h6 {
   height: 200px; }
 
 #headertext {
-  color: #F4F5F0;
   padding: 40px; }
 
-#homerow {
+#headerlink {
+  color: #F4F5F0; }
+
+#homecontainer {
   background-color: #008C45;
-  margin: 10vh;
+  margin-top: 10vh;
   height: 60vh; }
 
 #hometext {
@@ -59,11 +61,26 @@ form {
   margin-right: auto;
   width: auto; }
 
+.message {
+  font-weight: 600;
+  color: #CD212A; }
+
 [class*="col-"] {
   margin: 0px;
   padding: 40px; }
 
+/* Links */
+.container a:link, .container a:visited {
+  color: #008C45; }
+
+.container a:hover, .container a:active {
+  color: #1E441E; }
+
 #hours, #location {
   margin: auto; }
+
+::selection {
+  color: #F4F5F0;
+  background-color: #CD212A; }
 
 /*# sourceMappingURL=style.css.map */

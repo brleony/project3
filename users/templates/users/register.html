@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Register</h2>
+                {% if message %}
+                    <div class="message">
+                        {{ message }}
+                    </div>
+                {% endif %}
+
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input autocomplete="off" autofocus class="form-control" name="username" type="text"/>
+                        <small id="username_help" class="form-text text-muted">
+                            This is the name that you will use to login to the website.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input autocomplete="off" autofocus class="form-control" name="firstname" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input autocomplete="off" autofocus class="form-control" name="lastname" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input autocomplete="off" autofocus class="form-control" name="email" type="email"/>
+                        <small id="email_help" class="form-text text-muted">
+                            We need to be able to reach you on this email address.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <input class="form-control" name="password1" type="password"/>
+                        <small id="password1_help" class="form-text text-muted">
+                            xxx
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm password</label>
+                        <input class="form-control" name="password2" type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" type="submit">Register</button>
+                    </div>
+                </fieldset>
+                <!--<input name="username" type="text"/>-->
+                <!--<input name="firstname" type="text"/>-->
+                <!--<input name="lastname" type="text"/>-->
+                <!--<input name="email" type="text"/>-->
+                <!--<input name="password1" type="password"/>-->
+                <!--<input name="password2" type="password"/>-->
+                <!--<input type="submit" value="Register"/>-->
+            </form>
+        </div>
+    </div>
+{% endblock %}
