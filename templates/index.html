@@ -22,8 +22,12 @@
                 <div class="col">
                     <h1 id="hometext">Pinocchio's Pizza & Subs</h1>
                     <button type="button" class="btn btn-light"><a href="{% url 'menu' %}">Menu</a></button>
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-light"><a href="{% url 'info' %}">Find Us</a></button>
+                    {% else %}
                     <button type="button" class="btn btn-light"><a href="{% url 'register' %}">Register</a></button>
                     <button type="button" class="btn btn-light"><a href="{% url 'login' %}">Log In</a></button>
+                    {% endif %}
                 </div>
             </div>
         </div>
