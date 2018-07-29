@@ -1,57 +1,115 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
-class Toppings(models.Model):
-    topping = models.CharField(max_length=64)
+class Topping(models.Model):
+    topping = models.CharField(max_length = 4)
+    price = models.DecimalField(
+        "What does this topping cost?",
+        max_digits = 4,
+        decimal_places = 2,
+        default = 0.00,
+    )
 
     def __str__(self):
         return f"{self.id} - {self.topping}"
 
-
-class Pizza(models.Model):
-    sicilian = models.BooleanField("Is it a Sicilian pizza?")
-    num_toppings = models.IntegerField("Number of toppings")
-    toppings = models.ManyToManyField(Toppings, blank=True, on_delete=models.CASCADE)
-    large = models.BooleanField("Is it a large pizza?")
-
-    def clean(self):
-        if 0 <= self.num_toppings <= 5:
-            raise ValidationError("Number of toppings must be between 0 and 5.")
-
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.id} - Pizza with {self.num_toppings} toppings: {self.topping}. Large: {self.large}. Sicilian: {self.sicilian}."
-
-
-class Subs(models.Model):
-    name = models.CharField("What is on the sub?", max_length=64)
-    large = models.BooleanField("Is it a large sub?")
-    extra_cheese = models.BooleanField("Is extra cheese added?")
-
-    def __str__(self):
-        return f"{self.id} - {self.name} sub. Large: {self.large}. Extra cheese: {self.extra_cheese}."
-
-
-class Pasta(models.Model):
-    name = models.CharField("Mozzarella, meatballs or chicken?", max_length=64)
-
-    def __str__(self):
-        return f"{self.id} - Baked ziti with {self.name}"
-
-
-class Salad(models.Model):
-    name = models.CharField("Type of salad?", max_length=64)
-
-    def __str__(self):
-        return f"{self.id} - {self.name} salad"
-
-
-class Dinner_Platter(models.Model):
-    name = models.CharField("Type of salad?", max_length=64)
-    large = models.BooleanField("Is it a large dinner platter?")
+class Menu(models.Model):
+    SUB = 'SUB'
+    PASTA = 'PAST'
+    SALAD = 'SALA'
+    DINNER_PLATE = 'DIPL'
+    SICILIAN_PIZZA = 'SIPI'
+    REGULAR_PIZZA = 'REPI'
+    ITEM_CHOICES = (
+        (SUB, 'Sub'),
+        (PASTA, 'Pasta'),
+        (SALAD, 'Salad'),
+        (DINNER_PLATE, 'Dinner Plate'),
+        (SICILIAN_PIZZA, 'Sicilian Pizza'),
+        (REGULAR_PIZZA, 'Regular Pizza'),
+    )
+    item = models.CharField(
+        "What kind of item is this?",
+        choices = ITEM_CHOICES,
+        max_length = 4,
+    )
+    choice = models.CharField("What flavor is it?", max_length = 64)
+    SMALL = 'S'
+    LARGE = 'L'
+    SIZE_CHOICES = (
+        (SMALL, 'Small'),
+        (LARGE, 'Large')
+    )
+    size = models.CharField(
+        "What size item is this?",
+        choices = SIZE_CHOICES,
+        max_length = 2,
+    )
+    toppings = models.ManyToManyField(Topping, blank = True)
+    price = models.DecimalField(
+        "What does it cost?",
+        max_digits = 5,
+        decimal_places = 2,
+    )
 
     def __str__(self):
-        return f"{self.id} - {self.name} dinner platter. Large: {self.large}."
+        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.toppings}. Price: {self.price}."
+
+class Ordered_item(models.Model):
+    SUB = 'SUB'
+    PASTA = 'PAST'
+    SALAD = 'SALA'
+    DINNER_PLATE = 'DIPL'
+    SICILIAN_PIZZA = 'SIPI'
+    REGULAR_PIZZA = 'REPI'
+    ITEM_CHOICES = (
+        (SUB, 'Sub'),
+        (PASTA, 'Pasta'),
+        (SALAD, 'Salad'),
+        (DINNER_PLATE, 'Dinner Plate'),
+        (SICILIAN_PIZZA, 'Sicilian Pizza'),
+        (REGULAR_PIZZA, 'Regular Pizza'),
+    )
+    item = models.CharField(
+        "What kind of item is this?",
+        choices = ITEM_CHOICES,
+        max_length = 4,
+    )
+    choice = models.CharField("What flavor is it?", max_length = 64)
+    SMALL = 'S'
+    LARGE = 'L'
+    SIZE_CHOICES = (
+        (SMALL, 'Small'),
+        (LARGE, 'Large')
+    )
+    size = models.CharField(
+        "What size item is this?",
+        choices = SIZE_CHOICES,
+        max_length = 2,
+    )
+    toppings = models.ManyToManyField(Topping, blank = True)
+    price = models.DecimalField(
+        "What does it cost?",
+        max_digits = 5,
+        decimal_places = 2,
+    )
+    order = models.ForeignKey(
+        'Order',
+        on_delete = models.CASCADE,
+    )
+
+    def __str__(self):
+        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.toppings}. Order: {self.order}. Price: {self.price}."
+
+class Order(models.Model):
+    user = models.ForeignKey(
+        'auth.User',
+        on_delete = models.CASCADE,
+    )
+    time = models.DateTimeField(
+        'Timestamp',
+        auto_now_add = True,
+    )
+
+    def __str__(self):
+        return f"Order id: {self.id}. By {self.user} on {self.time}."
