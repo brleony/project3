@@ -175,7 +175,11 @@ class Cart_item(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings}: {self.toppings}. Order: {self.order}. Price: {self.price}."
+        print(self)
+        if self.item == 'PAST':
+            return f"{self.choice}. Price: {self.price}"
+        else:
+            return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings}: {self.toppings}. Order: {self.order}. Price: {self.price}."
 
 class Shopping_cart(models.Model):
     user = models.ForeignKey(

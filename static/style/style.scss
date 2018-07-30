@@ -88,6 +88,10 @@ form {
     color: $red;
 }
 
+.menu_item {
+    list-style-type: none;
+}
+
 [class*="col-"] {
     margin: 0px;
     padding: 40px;
