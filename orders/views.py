@@ -3,3 +3,6 @@ from django.shortcuts import render
 
 def menu(request):
     return render(request, "orders/menu.html")
+
+def cart(request):
+    return render(request, "orders/cart.html")

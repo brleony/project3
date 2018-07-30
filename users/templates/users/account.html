@@ -9,12 +9,14 @@
         <div class="col-md-12">
             <h2>Account details for {{ user.first_name }}</h2>
                 {% if message %}
-                    <div>
+                    <div class="message">
                         {{ message }}
                     </div>
                 {% endif %}
             <p>Currently logged in as: {{ user.username }}</p>
             <p>Last logged in on: {{ user.last_login }}</p>
+            <p>Your last order was on (()) >> See order.</p>
+            <p>Look at the <a href="{% url 'menu' %}">menu</a> and place a new order.</p>
         </div>
     </div>
 {% endblock %}

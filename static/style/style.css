@@ -51,8 +51,16 @@ h1, h2, h3, h4, h5, h6 {
 #footer {
   background-color: #C6C6C2;
   margin: 0px 0px 40px 0px;
-  height: 200px;
-  color: #848481; }
+  height: 190px;
+  color: #848481;
+  text-align: center;
+  padding: 20px; }
+
+/* Pinocchio figure in the footer */
+#doll {
+  position: absolute;
+  right: 0px;
+  bottom: -10px; }
 
 /* Center form, make not as wide */
 form {
