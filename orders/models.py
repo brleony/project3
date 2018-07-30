@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 class Topping(models.Model):
-    topping = models.CharField(max_length = 4)
+    topping = models.CharField(max_length = 64)
     price = models.DecimalField(
         "What does this topping cost?",
         max_digits = 4,
@@ -11,7 +11,7 @@ class Topping(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} - {self.topping}"
+        return f"{self.id} - {self.topping} for ${self.price}."
 
 class Menu(models.Model):
     SUB = 'SUB'
@@ -33,19 +33,24 @@ class Menu(models.Model):
         choices = ITEM_CHOICES,
         max_length = 4,
     )
-    choice = models.CharField("What flavor is it?", max_length = 64)
+    choice = models.CharField(
+        "What flavor is it?",
+        max_length = 64,
+        blank = True,
+    )
     SMALL = 'S'
     LARGE = 'L'
     SIZE_CHOICES = (
         (SMALL, 'Small'),
-        (LARGE, 'Large')
+        (LARGE, 'Large'),
     )
     size = models.CharField(
         "What size item is this?",
         choices = SIZE_CHOICES,
         max_length = 2,
+        blank = True,
     )
-    toppings = models.ManyToManyField(Topping, blank = True)
+    num_toppings = models.IntegerField(default = 0)
     price = models.DecimalField(
         "What does it cost?",
         max_digits = 5,
@@ -53,7 +58,7 @@ class Menu(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.toppings}. Price: {self.price}."
+        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings} toppings. Price: {self.price}."
 
 class Ordered_item(models.Model):
     SUB = 'SUB'
@@ -75,19 +80,25 @@ class Ordered_item(models.Model):
         choices = ITEM_CHOICES,
         max_length = 4,
     )
-    choice = models.CharField("What flavor is it?", max_length = 64)
+    choice = models.CharField(
+        "What flavor is it?",
+        max_length = 64,
+        blank = True,
+    )
     SMALL = 'S'
     LARGE = 'L'
     SIZE_CHOICES = (
         (SMALL, 'Small'),
-        (LARGE, 'Large')
+        (LARGE, 'Large'),
     )
     size = models.CharField(
         "What size item is this?",
         choices = SIZE_CHOICES,
         max_length = 2,
+        blank = True,
     )
     toppings = models.ManyToManyField(Topping, blank = True)
+    num_toppings = models.IntegerField(default = 0)
     price = models.DecimalField(
         "What does it cost?",
         max_digits = 5,
@@ -99,7 +110,7 @@ class Ordered_item(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.toppings}. Order: {self.order}. Price: {self.price}."
+        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings}: {self.toppings}. Order: {self.order}. Price: {self.price}."
 
 class Order(models.Model):
     user = models.ForeignKey(
