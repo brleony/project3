@@ -169,27 +169,14 @@ class Cart_item(models.Model):
         max_digits = 5,
         decimal_places = 2,
     )
-    cart = models.ForeignKey(
-        'Shopping_cart',
-        on_delete = models.CASCADE,
-    )
-
-    def __str__(self):
-        print(self)
-        if self.item == 'PAST':
-            return f"{self.choice}. Price: {self.price}"
-        else:
-            return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings}: {self.toppings}. Order: {self.order}. Price: {self.price}."
-
-class Shopping_cart(models.Model):
     user = models.ForeignKey(
         'auth.User',
         on_delete = models.CASCADE,
-    )
-    last_modified = models.DateTimeField(
-        'Timestamp',
-        auto_now = True,
+        default = 0,
     )
 
     def __str__(self):
-        return f"Order id: {self.id}. By {self.user} on {self.time}."
+        toppings = ", ".join([t["topping"] for t in self.toppings.all().values()])
+        return f"{self.id} - {self.size} {self.choice} {self.item}" \
+               f" with {self.num_toppings} toppings: {toppings}." \
+               f" User: {self.user}. Price: {self.price}."

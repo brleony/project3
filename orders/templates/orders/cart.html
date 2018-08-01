@@ -8,7 +8,14 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Current Order</h2>
-            <p>Under Construction.</p>
+            {% if cart_items %}
+                {% for item in cart_items %}
+                    <p>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: {{ item.price }}</p>
+                    {% for topping in item.toppings %}
+                        <p> * Topping: {{ topping.topping }}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

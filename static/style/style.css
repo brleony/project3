@@ -7,6 +7,14 @@
 .bg-darkgreen {
   background-color: #1E441E; }
 
+.btn-green {
+  background-color: #008C45;
+  color: #F4F5F0; }
+
+.btn-red {
+  background-color: #CD212A;
+  color: #F4F5F0; }
+
 body {
   font-family: 'Lato', sans-serif;
   background-image: url("../ingredientsbackground.jpg");
@@ -73,8 +81,12 @@ form {
   font-weight: 600;
   color: #CD212A; }
 
-.menu_item {
-  list-style-type: none; }
+.menu {
+  list-style-type: none;
+  padding-left: 0px; }
+
+.menu li {
+  padding: 8px 0px 8px 0px; }
 
 [class*="col-"] {
   margin: 0px;
@@ -89,6 +101,9 @@ form {
 
 #hours, #location {
   margin: auto; }
+
+.fas {
+  padding-left: 3px; }
 
 ::selection {
   color: #F4F5F0;

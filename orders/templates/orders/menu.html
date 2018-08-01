@@ -5,72 +5,138 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Menu</h2>
-
-            {% if sic_pizzas %}
-            <h4>Sicilian Pizza</h4>
-            <p>Our Regular pizza is a thin-crust or Neapolitan pizza.
-            They come in 2 sizes: small (12" in diameter) and large (16" in diameter). The small is suitable for 1 to 2 people while the large feeds 2 to 4 people.</p>
-            <p>Prizes are for a small pizza. Click to see prices for a large pizza.</p>
-            <ul>
-                {% for sic_pizza in sic_pizzas %}
-                <li class="menu_item">With {{ sic_pizza.num_toppings }} toppings<span style="float: right;">${{ sic_pizza.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if reg_pizzas %}
-            <h4>Regular Pizza</h4>
-            <p>Our Sicilian pizza is a deep-dish or thick-crust pizza. We sell them in a 9-slice (small) or a 15-slice size (large).
-            The 9-slice size is 16" x 16" and will feed from 3 to 5 people.
-            The 15-slice size is 28" x 16", comes in 2 large pizza boxes and can feed 6 to 9 people.</p>
-            <p>Prizes are for a small pizza. Click to see prices for a large pizza.</p>
-            <ul>
-                {% for reg_pizza in reg_pizzas %}
-                <li class="menu_item">With {{ reg_pizza.num_toppings }} toppings<span style="float: right;">${{ reg_pizza.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if subs %}
-            <h4>Subs</h4>
-            <p>Prizes are for a small sub. Click to see prices for a large sub.</p>
-            <ul>
-                {% for subs in subs %}
-                <li class="menu_item">{{ subs.choice }} <span style="float: right;">${{ subs.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if pastas %}
-            <h4>Pasta</h4>
-            <ul>
-                {% for pasta in pastas %}
-                <li class="menu_item">{{ pasta.choice }} <span style="float: right;">${{ pasta.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if salads %}
-            <h4>Salads</h4>
-            <ul>
-                {% for salad in salads %}
-                <li class="menu_item">{{ salad.choice }} <span style="float: right;">${{ salad.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-            {% if dinner_plates %}
-            <h4>Dinner Platters</h4>
-            <p>Prizes are for a small dinner platter. Click to see prices for a large dinner platter.</p>
-            <ul>
-                {% for dinner_plate in dinner_plates %}
-                <li class="menu_item">{{ dinner_plate.choice }} <span style="float: right;">${{ dinner_plate.price }}</span></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+<!-- Empty modal -->
+<div class="modal fade" id="menu_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Title.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'menu' %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="price" name="price" type="text" value="">
+                            <input type="hidden" class="form-control" id="item" name="item" type="text" value="">
+                            <input type="hidden" class="form-control" id="choice" name="choice" type="text" value="">
+                        </div>
+                        <div id="size_radios" style="visibility: hidden;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="size" id="size_small" value="S" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                Small
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="size" id="size_large" value="L">
+                                <label class="form-check-label" for="exampleRadios2">
+                                Large
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-check" id="cheese_check" style="visibility: hidden;">
+                            <input class="form-check-input" type="checkbox" value="cheese" name="extra_cheese" id="extra_cheese">
+                            <label class="form-check-label" for="extra_cheese">
+                            Extra cheese
+                            </label>
+                        </div>
+                        <p id="shown_price"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-red">Add to order</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Menu</h2>
+    </div>
+    <div class="col-md-4">
+        {% if toppings %}
+        <h4>Toppings</h4>
+        <ul class="menu">
+            {% for topping in toppings %}
+            <li class="topping">{{ topping.topping }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        {% if sic_pizzas %}
+        <h4>Sicilian Pizza</h4>
+        <p>Our Regular pizza is a thin-crust or Neapolitan pizza.
+        They come in 2 sizes: small (12" in diameter) and large (16" in diameter). The small is suitable for 1 to 2 people while the large feeds 2 to 4 people.</p>
+        <p>Prizes are for a small pizza. Click to see prices for a large pizza.</p>
+        <ul class="menu">
+            {% for sic_pizza in sic_pizzas %}
+            <li class="menu_item">With {{ sic_pizza.num_toppings }} toppings<span style="float: right;">${{ sic_pizza.price }}</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if reg_pizzas %}
+        <h4>Regular Pizza</h4>
+        <p>Our Sicilian pizza is a deep-dish or thick-crust pizza. We sell them in a 9-slice (small) or a 15-slice size (large).
+        The 9-slice size is 16" x 16" and will feed from 3 to 5 people.
+        The 15-slice size is 28" x 16", comes in 2 large pizza boxes and can feed 6 to 9 people.</p>
+        <p>Prizes are for a small pizza. Click to see prices for a large pizza.</p>
+        <ul class="menu">
+            {% for reg_pizza in reg_pizzas %}
+            <li class="menu_item">With {{ reg_pizza.num_toppings }} toppings<span style="float: right;">${{ reg_pizza.price }}</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        {% if subs %}
+        <h4>Subs</h4>
+        <p>Prizes are for a small sub. Click to see prices for a large sub.</p>
+        <ul class="menu">
+            {% for sub in subs %}
+            <li class="menu_item" data-item="{{ sub.item }}" data-choice="{{ sub.choice }}" data-price="{{ sub.price }}">
+                {{ sub.choice }} <button class="btn btn-green btn-sm" style="float: right;">$ {{ sub.price }} <i class="fas fa-plus"></i></button></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if pastas %}
+        <h4>Pasta</h4>
+        <ul class="menu">
+            {% for pasta in pastas %}
+            <li class="menu_item" data-item="{{ pasta.item }}" data-choice="{{ pasta.choice }}" data-price="{{ pasta.price }}">
+                {{ pasta.choice }} <button class="btn btn-green btn-sm" style="float: right;">$ {{ pasta.price }} <i class="fas fa-plus"></i></button></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if salads %}
+        <h4>Salads</h4>
+        <ul class="menu">
+            {% for salad in salads %}
+            <li class="menu_item" data-item="{{ salad.item }}" data-choice="{{ salad.choice }}" data-price="{{ salad.price }}">
+                {{ salad.choice }} <button class="btn btn-green btn-sm" style="float: right;">$ {{ salad.price }} <i class="fas fa-plus"></i></button></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if dinner_plates %}
+        <h4>Dinner Platters</h4>
+        <p>Prizes are for a small dinner platter. Click to see prices for a large dinner platter.</p>
+        <ul class="menu">
+            {% for dinner_plate in dinner_plates %}
+            <li class="menu_item" data-item="{{ dinner_plate.item }}" data-choice="{{ dinner_plate.choice }}" data-price="{{ dinner_plate.price }}">
+                {{ dinner_plate.choice }} <button class="btn btn-green btn-sm" style="float: right;">$ {{ dinner_plate.price }} <i class="fas fa-plus"></i></button></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
