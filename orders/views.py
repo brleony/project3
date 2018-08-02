@@ -4,6 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from .models import Menu, Cart_item, Topping, Ordered_item, Order
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -161,6 +162,8 @@ def myorders(request):
     # Add items in all orders to list.
     ordered_items = []
     for order in orders:
+        user = User.objects.filter(user = order.user).values()
+        print(user)
         ordered_items_queryset = Ordered_item.objects.filter(order = order.id)
         for ordered_item in ordered_items_queryset:
             ordered_items.append(
@@ -170,7 +173,7 @@ def myorders(request):
                  "price": ordered_item.price,
                  "num_toppings": ordered_item.num_toppings,
                  "toppings": ordered_item.toppings.all(),
-                 "order": ordered_item.order
+                 "order": order
                 }
             )
 
@@ -187,7 +190,19 @@ def allorders(request):
     # Add items in all orders to list.
     ordered_items = []
     for order in orders:
+        order_dict = model_to_dict(order)
+
+        # Get information about user.
+        user = User.objects.get(id = order.user.id)
+        order_dict["user"] = {
+            "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email
+        }
+
         ordered_items_queryset = Ordered_item.objects.filter(order = order.id)
+
         for ordered_item in ordered_items_queryset:
             ordered_items.append(
                 {"choice": ordered_item.choice,
@@ -196,11 +211,9 @@ def allorders(request):
                  "price": ordered_item.price,
                  "num_toppings": ordered_item.num_toppings,
                  "toppings": ordered_item.toppings.all(),
-                 "order": ordered_item.order
+                 "order": order_dict
                 }
             )
-
-    print(ordered_items)
 
     context = {
         "ordered_items": ordered_items
