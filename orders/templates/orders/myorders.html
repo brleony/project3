@@ -9,12 +9,22 @@
         <div class="col-md-12">
             <h2>My Orders</h2>
             {% if ordered_items %}
-                {% for item in ordered_items %}
-                    <p>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: $ {{ item.price }}. Order: {{ item.order_id }}</p>
-                    {% for topping in item.toppings %}
-                        <p> * Topping: {{ topping.topping }}</p>
+                {% regroup ordered_items by order as order_list %}
+                    <ul>
+                    {% for order in order_list %}
+                        <li>Order: {{ order_id.grouper }}</li>
+                            <ul>
+                            {% for item in order.list %}
+                                <li>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: $ {{ item.price }}.</li>
+                                <ul>
+                                {% for topping in item.toppings %}
+                                    <li>Topping: {{ topping.topping }}</li>
+                                {% endfor %}
+                                </ul>
+                            {% endfor %}
+                            </ul>
                     {% endfor %}
-                {% endfor %}
+                    </ul>
             {% else %}
                 <p>You have never ordered any items.<br>
                 Look at the <a href="{% url 'menu' %}">menu</a> and add items to your cart to order them.</p>

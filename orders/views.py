@@ -156,9 +156,18 @@ def myorders(request):
     # Add items in all orders to list.
     ordered_items = []
     for order in orders:
-        ordered_items_queryset = Ordered_item.objects.filter(order = order.id).values()
+        ordered_items_queryset = Ordered_item.objects.filter(order = order.id)
         for ordered_item in ordered_items_queryset:
-            ordered_items.append(ordered_item)
+            ordered_items.append(
+                {"choice": ordered_item.choice,
+                 "item": ordered_item.item,
+                 "size": ordered_item.size,
+                 "price": ordered_item.price,
+                 "num_toppings": ordered_item.num_toppings,
+                 "toppings": ordered_item.toppings.all(),
+                 "order": ordered_item.order
+                }
+            )
 
     context = {
         "ordered_items": ordered_items
