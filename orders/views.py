@@ -57,7 +57,7 @@ def menu(request):
 
         # Add extra cheese.
         if extra_cheese:
-            price += 0.50
+            price = float(price) + 0.50
             num_toppings += 1
             # Add cheese to toppings.
             cheese = Topping.objects.get(id = 22)
@@ -181,5 +181,28 @@ def myorders(request):
 
 @staff_member_required
 def allorders(request):
-    context = {}
+    # Get all orders.
+    orders = Order.objects.all()
+
+    # Add items in all orders to list.
+    ordered_items = []
+    for order in orders:
+        ordered_items_queryset = Ordered_item.objects.filter(order = order.id)
+        for ordered_item in ordered_items_queryset:
+            ordered_items.append(
+                {"choice": ordered_item.choice,
+                 "item": ordered_item.item,
+                 "size": ordered_item.size,
+                 "price": ordered_item.price,
+                 "num_toppings": ordered_item.num_toppings,
+                 "toppings": ordered_item.toppings.all(),
+                 "order": ordered_item.order
+                }
+            )
+
+    print(ordered_items)
+
+    context = {
+        "ordered_items": ordered_items
+    }
     return render(request, "orders/allorders.html", context)
