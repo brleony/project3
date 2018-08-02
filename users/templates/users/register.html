@@ -14,6 +14,8 @@
                     </div>
                 {% endif %}
 
+            <p>You can <a href="{% url 'login' %}">log in</a> here.</p>
+
             <form action="{% url 'register' %}" method="post">
                 {% csrf_token %}
                 <fieldset>
