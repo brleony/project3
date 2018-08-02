@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Menu, Cart_item, Topping
+from .models import Menu, Cart_item, Topping, Ordered_item, Order
 
 def menu(request):
     if request.method == 'POST':
@@ -97,11 +97,13 @@ def cart(request):
     context = {
         "cart_items": []
     }
+    total_price = 0
 
     # Query database for items in current user's cart.
     cart_items = Cart_item.objects.filter(user = request.user)
 
     for cart_item in cart_items:
+        # Add items to context.
         context["cart_items"].append(
             {"choice": cart_item.choice,
              "item": cart_item.item,
@@ -109,5 +111,47 @@ def cart(request):
              "price": cart_item.price,
              "toppings": cart_item.toppings.all()}
         )
+        # Calculate total price of items in cart.
+        total_price += cart_item.price
+
+    context["total_price"] = total_price
 
     return render(request, "orders/cart.html", context)
+
+def myorders(request):
+    if request.method == 'POST':
+        # Create new order.
+        current_order = Order(user = request.user)
+        current_order.save()
+
+        # Get items in cart.
+        cart_items = Cart_item.objects.filter(user = request.user)
+        print(cart_items)
+
+        # Add items in cart to ordered items.
+        for cart_item in cart_items:
+            # Make and save item.
+            ordered_item = Ordered_item.objects.create(
+                    item = cart_item.item,
+                    choice = cart_item.choice,
+                    size = cart_item.size,
+                    num_toppings = cart_item.num_toppings,
+                    price = cart_item.price,
+                    order = current_order
+                )
+            ordered_item.save()
+
+            # Add toppings.
+            toppings = cart_item.toppings.all().values()
+            for topping in toppings:
+                ordered_item.toppings.add(topping["id"])
+
+        # Empty cart.
+        Cart_item.objects.filter(user = request.user).delete()
+
+    # Show users orders. TODO
+
+    context = {
+        "empty": "lol"
+    }
+    return render(request, "orders/myorders.html", context)

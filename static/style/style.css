@@ -104,6 +104,10 @@ form {
 #hours, #location {
   margin: auto; }
 
+#cart_total_price {
+  float: right;
+  font-weight: 800; }
+
 .fas {
   padding-left: 3px; }
 
@@ -111,6 +115,12 @@ form {
   color: #F4F5F0;
   background-color: #CD212A; }
 
+/* * * * * * *
+* Fixed Bootstrap issue with background and/or container shifting when modal is open.
+*
+* By ben.kaminski and cjd82187
+* https://stackoverflow.com/a/25952508/ & https://stackoverflow.com/a/19962780/
+* * * * * * */
 .modal {
   overflow-y: auto; }
 

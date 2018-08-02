@@ -110,7 +110,10 @@ class Ordered_item(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id} - {self.size} {self.choice} {self.item} with {self.num_toppings}: {self.toppings}. Order: {self.order}. Price: {self.price}."
+        toppings = ", ".join([t["topping"] for t in self.toppings.all().values()])
+        return f"{self.id} - {self.size} {self.choice} {self.item}" \
+               f" with {self.num_toppings} toppings: {toppings}." \
+               f"Order: {self.order}. Price: {self.price}."
 
 class Order(models.Model):
     user = models.ForeignKey(

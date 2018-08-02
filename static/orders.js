@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Change and show price.
-            $( "#outside_form" ).append(`<p>$ ${item.dataset.price}</p>`);
+            //$( "#outside_form" ).append(`<p>$ ${item.dataset.price}</p>`);
             $( "#price" ).val(item.dataset.price);
 
             // Add submit button.

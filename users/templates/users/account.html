@@ -15,7 +15,7 @@
                 {% endif %}
             <p>Currently logged in as: {{ user.username }}</p>
             <p>Last logged in on: {{ user.last_login }}</p>
-            <p>Your last order was on (()) >> See order.</p>
+            <p>View your <a href="{% url 'myorders' %}">last orders</a>.</p>
             <p>Look at the <a href="{% url 'menu' %}">menu</a> and place a new order.</p>
         </div>
     </div>

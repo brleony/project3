@@ -15,6 +15,14 @@
                         <p> * Topping: {{ topping.topping }}</p>
                     {% endfor %}
                 {% endfor %}
+                <p id="cart_total_price">Total: $ {{ total_price }}</p>
+                <form action="{% url 'myorders' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-green">Place order</button>
+                </form>
+            {% else %}
+                <p>There are currently not items in your shopping cart.<br>
+                Look at the <a href="{% url 'menu' %}">menu</a> to add items.</p>
             {% endif %}
         </div>
     </div>
