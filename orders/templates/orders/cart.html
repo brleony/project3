@@ -10,7 +10,7 @@
             <h2>Current Order</h2>
             {% if cart_items %}
                 {% for item in cart_items %}
-                    <p>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: {{ item.price }}</p>
+                    <p>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: $ {{ item.price }}</p>
                     {% for topping in item.toppings %}
                         <p> * Topping: {{ topping.topping }}</p>
                     {% endfor %}

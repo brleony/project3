@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('click', () => {
             var menu_modal = $('#menu_modal');
 
+            console.log(item.dataset.price);
+
             // Change title.
             menu_modal.find('.modal-title').text(item.dataset.choice);
 
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             $( "#price" ).val(item.dataset.price);
 
             // Add submit button.
-            $( "#outside_form" ).append('<button type="submit" class="btn btn-red">Add to order</button>');
+            $( "#form-inputs" ).append('<button type="submit" class="btn btn-red">Add to order</button>');
 
             // Show modal.
             menu_modal.modal('show');

@@ -6,12 +6,33 @@ from .models import Menu, Cart_item, Topping
 
 def menu(request):
     if request.method == 'POST':
-        # Save submitted values.
-        price = float(request.POST["price"])
-        choice = request.POST["choice"]
+        # Save item, choice and price.
         item = request.POST["item"]
-        size = request.POST["size"]
-        extra_cheese = request.POST["extra_cheese"]
+        choice = request.POST["choice"]
+        price = float(request.POST["price"])
+
+        try:
+            size = request.POST["size"]
+        except KeyError:
+            size = None
+
+        try:
+            extra_cheese = request.POST["extra_cheese"]
+        except KeyError:
+            extra_cheese = None
+
+        num_toppings = 0
+        pizza_toppings = []
+
+        # Save all toppings (up to 4).
+        for i in range(0, 4):
+            try:
+                i_str = str(i)
+                print(f"topping_select_{i_str}")
+                pizza_toppings.append(int(request.POST[f"topping_select_{i_str}"]))
+                num_toppings += 1
+            except KeyError:
+                print('no topping ' + str(i))
 
         # If large, get price for Large item.
         if size == 'L':
@@ -19,20 +40,33 @@ def menu(request):
             price = item_large[0]["price"]
             print(item_large, price)
 
-        # If extra cheese.
+        # Add item to current user's shopping cart.
+        i = Cart_item(
+            item = item,
+            choice = choice,
+            price = price,
+            size = size,
+            num_toppings = num_toppings,
+            user = request.user
+        )
+        i.save()
+
+        # Add extra cheese.
         if extra_cheese:
-            # Add 0.50 to price.
-            price = price + 0.50
+            price += 0.50
+            num_toppings += 1
             # Add cheese to toppings.
             cheese = Topping.objects.get(id = 22)
-            print('yay cheese')
+            i.toppings.add(cheese)
+            i.price = price
+            i.num_toppings = num_toppings
+            i.save()
 
-        # Add item to current user's shopping cart.
-        i = Cart_item(item = item, choice = choice, price = price, size = size, user = request.user)
-        i.save()
-        i.toppings.add(cheese)
-        #i.save()
-        print(i)
+        # Add pizza toppings.
+        if pizza_toppings:
+            for pizza_topping in pizza_toppings:
+                topping = Topping.objects.get(id = pizza_topping)
+                i.toppings.add(topping)
 
     # Query database for menu items and toppings.
     pastas = Menu.objects.filter(item = 'PAST').values()
@@ -65,13 +99,14 @@ def cart(request):
     }
 
     # Query database for items in current user's cart.
-    cart_items = Cart_item.objects.filter
+    cart_items = Cart_item.objects.filter(user = request.user)
+
     for cart_item in cart_items:
         context["cart_items"].append(
-            {"choice":cart_item.choice,
-             "item":cart_item.item,
-             "size":cart_item.size,
-             "price":cart_item.price,
+            {"choice": cart_item.choice,
+             "item": cart_item.item,
+             "size": cart_item.size,
+             "price": cart_item.price,
              "toppings": cart_item.toppings.all()}
         )
 
