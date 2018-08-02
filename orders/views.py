@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.exceptions import ObjectDoesNotExist
+from django.forms.models import model_to_dict
 from .models import Menu, Cart_item, Topping, Ordered_item, Order
 
 def menu(request):
@@ -14,7 +15,7 @@ def menu(request):
         try:
             size = request.POST["size"]
         except KeyError:
-            size = None
+            size = 'S'
 
         try:
             extra_cheese = request.POST["extra_cheese"]
@@ -119,6 +120,7 @@ def cart(request):
     return render(request, "orders/cart.html", context)
 
 def myorders(request):
+
     if request.method == 'POST':
         # Create new order.
         current_order = Order(user = request.user)
@@ -126,7 +128,6 @@ def myorders(request):
 
         # Get items in cart.
         cart_items = Cart_item.objects.filter(user = request.user)
-        print(cart_items)
 
         # Add items in cart to ordered items.
         for cart_item in cart_items:
@@ -149,9 +150,17 @@ def myorders(request):
         # Empty cart.
         Cart_item.objects.filter(user = request.user).delete()
 
-    # Show users orders. TODO
+    # Get all orders.
+    orders = Order.objects.filter(user = request.user)
+
+    # Add items in all orders to list.
+    ordered_items = []
+    for order in orders:
+        ordered_items_queryset = Ordered_item.objects.filter(order = order.id).values()
+        for ordered_item in ordered_items_queryset:
+            ordered_items.append(ordered_item)
 
     context = {
-        "empty": "lol"
+        "ordered_items": ordered_items
     }
     return render(request, "orders/myorders.html", context)

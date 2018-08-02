@@ -8,7 +8,17 @@
     <div class="row">
         <div class="col-md-12">
             <h2>My Orders</h2>
-            <p>Under construction.</p>
+            {% if ordered_items %}
+                {% for item in ordered_items %}
+                    <p>{{ item.size }} {{ item.choice }} {{ item.item }}. Price: $ {{ item.price }}. Order: {{ item.order_id }}</p>
+                    {% for topping in item.toppings %}
+                        <p> * Topping: {{ topping.topping }}</p>
+                    {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>You have never ordered any items.<br>
+                Look at the <a href="{% url 'menu' %}">menu</a> and add items to your cart to order them.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
