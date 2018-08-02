@@ -132,3 +132,19 @@ form {
     color: $white;
     background-color: $red;
 }
+
+/* * * * * * *
+* Fixed Bootstrap issue with background and/or container shifting when modal is open.
+*
+* By ben.kaminski and cjd82187
+* https://stackoverflow.com/a/25952508/ & https://stackoverflow.com/a/19962780/
+* * * * * * */
+.modal {
+    overflow-y: auto;
+}
+.modal-open {
+    overflow: auto;
+}
+.modal-open[style] {
+    padding-right: 0px !important;
+}
