@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load staticfiles%}
+
 {% block title %}
     About Us
 {% endblock %}
@@ -13,14 +15,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <img class="img-fluid rounded" src="http://www.pinocchiospizza.net/images/building3.jpg" alt="Restaurant Entrance Picture">
+    <div class="col-md-6">
+        <img class="img-fluid rounded" src="{% static 'photos/pizzabox.jpg' %}" alt="Open pizza box with Sicilian Spinach pizza">
     </div>
-    <div class="col-md-4">
-        <img class="img-fluid rounded" src="https://s3-media3.fl.yelpcdn.com/bphoto/gsDRsU2MdkjvYMi5q6d1tA/o.jpg" alt="Two Slices of Pizza on Paper Plates">
-    </div>
-    <div class="col-md-4">
-        <img class="img-fluid rounded" src="https://s3-media2.fl.yelpcdn.com/bphoto/73N5ZuL7IDFuleJ2nyE1Fw/o.jpg" alt="Herb Bottles">
+    <div class="col-md-6">
+        <img class="img-fluid rounded" src="{% static 'photos/picturewall.jpg' %}" alt="Picture wall inside restaurant">
     </div>
 </div>
 <div class="row">

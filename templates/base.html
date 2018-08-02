@@ -46,14 +46,14 @@
                     </ul>
                     {% if user.is_authenticated %}
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link">Current Order</a></li>
-                        <li class="nav-item"><a href="{% url 'account' %}" class="nav-link">My Account</a></li>
-                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
+                        <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link"><i class="fas fa-shopping-cart"></i> Current Order</a></li>
+                        <li class="nav-item"><a href="{% url 'account' %}" class="nav-link"><i class="fas fa-user"></i> My Account</a></li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                     </ul>
                     {% else %}
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Log In</a></li>
-                        <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
+                        <li class="nav-item"><a href="{% url 'register' %}" class="nav-link"><i class="fas fa-user-plus"></i> Register</a></li>
                     </ul>
                     {% endif %}
                 </div>
@@ -68,6 +68,10 @@
             <div class="row" id="footer">
                 <div class="col">
                     <p>Background vector designed by <a href='https://www.freepik.com/free-vector/seamless-pizza-ingredients_1389751.htm'>Freepik</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> 74 Winthrop Street, Cambridge, MA<br>
+                    <i class="fas fa-phone"></i> 617-876-4897 / 617-876-0012<br>
+                    <a href="https://www.instagram.com/pinocchiospizza1/"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a href="https://twitter.com/PinocchiosPizz"><i class="fab fa-twitter fa-2x"></i></p>
                     <img src="http://www.harvardsquare.com/sites/default/files/pinocchio_72.gif" alt="Pinocchio Doll" id="doll">
                 </div>
             </div>
