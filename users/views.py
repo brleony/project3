@@ -1,14 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+@login_required(login_url='/user/login')
 def account(request):
-    if not request.user.is_authenticated:
-        return render(request, "orders/menu.html")
 
     return render(request, "users/account.html", {"message": None})
 
