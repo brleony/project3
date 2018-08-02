@@ -2,7 +2,8 @@
 
 This website is part of my homework for the course Web Programming with Python and JavaScript.
 It is a website for a pizza restaurant in Cambridge, MA. Basic information about the restaurant can be found on the site.
-The site can also be used to view the menu. After creating an account, users can add items to their shopping cart.
+The site can also be used to view the menu. After creating an account, users can add items to their shopping cart and order these items.
+User can view their past orders and staff can view past orders by all users.
 
 ## Folders
 
@@ -10,7 +11,7 @@ The site can also be used to view the menu. After creating an account, users can
 Main Django project.
 
 ### Orders
-Application for displaying the menu and adding items to the shopping cart.
+Application for displaying the menu, adding items to the shopping cart, placing an order, and viewing past order details.
 In `models.py` it has the models for the menu, items in the cart and ordered items.
 Folder `templates` has a template for the menu and for the shopping cart.
 
