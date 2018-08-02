@@ -9,7 +9,7 @@
 
 .btn-green {
   background-color: #008C45;
-  color: #F4F5F0; }
+  color: white; }
 
 .btn-red {
   background-color: #CD212A;
@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 #homecontainer {
   background-color: #008C45;
   margin-top: 10vh;
-  height: 60vh; }
+  margin-bottom: 10vh; }
 
 #hometext {
   color: #F4F5F0; }
@@ -86,7 +86,9 @@ form {
   padding-left: 0px; }
 
 .menu li {
-  padding: 8px 0px 8px 0px; }
+  padding: 8px 0px 8px 16px;
+  margin-bottom: 4px;
+  background: white; }
 
 [class*="col-"] {
   margin: 0px;

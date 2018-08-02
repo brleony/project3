@@ -19,15 +19,20 @@
     <body>
         <div class="container" id="homecontainer">
             <div class="row">
-                <div class="col">
+                <div class="col-md-12">
                     <h1 id="hometext">Pinocchio's Pizza & Subs</h1>
-                    <button type="button" class="btn btn-light"><a href="{% url 'menu' %}">Menu</a></button>
-                    {% if user.is_authenticated %}
-                    <button type="button" class="btn btn-light"><a href="{% url 'info' %}">Find Us</a></button>
-                    {% else %}
-                    <button type="button" class="btn btn-light"><a href="{% url 'register' %}">Register</a></button>
-                    <button type="button" class="btn btn-light"><a href="{% url 'login' %}">Log In</a></button>
-                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{% url 'menu' %}">
+                        <img class="img-fluid rounded" src="{% static 'photos/pizza.jpg' %}" alt="Pizza">
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'info' %}">
+                        <img class="img-fluid rounded" src="{% static 'photos/interior.jpg' %}" alt="Restaurant interior">
+                    </a>
                 </div>
             </div>
         </div>

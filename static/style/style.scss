@@ -16,7 +16,7 @@ $red: #CD212A;    /* Flame Scarlet */
 }
 .btn-green {
     background-color: $green;
-    color: $white;
+    color: white;
 }
 .btn-red {
     background-color: $red;
@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 #homecontainer {
     background-color: $green;
     margin-top: 10vh;
-    height: 60vh;
+    margin-bottom: 10vh;
 }
 #hometext {
     color: $white;
@@ -101,7 +101,9 @@ form {
     padding-left: 0px;
 }
 .menu li {
-    padding: 8px 0px 8px 0px;
+    padding: 8px 0px 8px 16px;
+    margin-bottom: 4px;
+    background: white;
 }
 
 [class*="col-"] {

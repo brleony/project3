@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Menu, Cart_item, Topping
 
@@ -41,6 +42,9 @@ def menu(request):
     reg_pizzas = Menu.objects.filter(item = 'REPI').filter(size = 'S').values()
     sic_pizzas = Menu.objects.filter(item = 'SIPI').filter(size = 'S').values()
     toppings = Topping.objects.filter(price = 0.00).values()
+
+    # toppings_json.DjangoJSONEncoder().encode(toppings)
+    # print(toppings)
 
     context = {
         "pastas": pastas,
