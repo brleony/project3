@@ -46,6 +46,9 @@
                     </ul>
                     {% if user.is_authenticated %}
                     <ul class="nav navbar-nav ml-auto">
+                        {% if user.is_staff %}
+                        <li class="nav-item"><a href="{% url 'allorders' %}" class="nav-link"><i class="fas fa-list-ul"></i> All Orders</a></li>
+                        {% endif %}
                         <li class="nav-item"><a href="{% url 'cart' %}" class="nav-link"><i class="fas fa-shopping-cart"></i> Current Order</a></li>
                         <li class="nav-item"><a href="{% url 'account' %}" class="nav-link"><i class="fas fa-user"></i> My Account</a></li>
                         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>

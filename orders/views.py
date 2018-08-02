@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import model_to_dict
 from .models import Menu, Cart_item, Topping, Ordered_item, Order
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 @login_required(login_url='/user/login')
 def menu(request):
@@ -177,3 +178,8 @@ def myorders(request):
         "ordered_items": ordered_items
     }
     return render(request, "orders/myorders.html", context)
+
+@staff_member_required
+def allorders(request):
+    context = {}
+    return render(request, "orders/allorders.html", context)
