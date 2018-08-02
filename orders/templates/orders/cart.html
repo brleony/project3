@@ -18,7 +18,10 @@
                 <p id="cart_total_price">Total: $ {{ total_price }}</p>
                 <form action="{% url 'myorders' %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-green">Place order</button>
+                    <button type="submit"
+                        onclick="return confirm('Do you want to order {{ cart_items|length }} items for $ {{ total_price }} ?')" class="btn btn-green">
+                        Place order
+                    </button>
                 </form>
             {% else %}
                 <p>There are currently not items in your shopping cart.<br>
