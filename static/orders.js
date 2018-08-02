@@ -42,43 +42,39 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </label>
                                     </div>`;
 
-            // If dinner platter was clicked.
-            if (item.dataset.item == 'DIPL') {
+            // If dinner platter, sub, or pizza was clicked.
+            if (item.dataset.item == 'DIPL' || item.dataset.item == 'SUB' || item.dataset.item == 'REPI' || item.dataset.item == 'SIPI') {
                 // Add radio buttons for size.
                 $( "#form-inputs" ).append(radio_buttons);
             }
 
             // If sub was clicked.
             if (item.dataset.item == 'SUB') {
-                // Add radio buttons for size.
-                $( "#form-inputs" ).append(radio_buttons);
-
                 // Add 'extra cheese' checkbox.
                 $( "#form-inputs" ).append(cheese_checkbox);
             }
-            if (item.dataset.item == 'REPI' || item.dataset.item == 'SIPI') {
-                // Add radio buttons for size.
-                $( "#form-inputs" ).append(radio_buttons);
-
+            // If pizza was clicked.
+            else if (item.dataset.item == 'REPI' || item.dataset.item == 'SIPI') {
                 // Change title.
                 let title = item.dataset.item + ' with ' + item.dataset.num_toppings + ' toppings';
                 menu_modal.find('.modal-title').text(title);
 
-                console.log(item.dataset.toppings_options);
+                // Make arrays for topping names and ids.
+                topping_names = item.dataset.topping_names.split(",");
+                topping_ids = item.dataset.topping_ids.split(",");
 
-                // for (item in item.dataset.toppings_options) {
-                //     console.log(item);
-                // }
+                // Put topping names and ids in HTML option tags.
+                var options = [];
+                topping_names.forEach((name, i) => {
+                    options.push(`<option value="${topping_ids[i]}">${name}</option>`);
+                });
 
-                // item.dataset.toppings_options.forEach((i, item) => {
-                //     console.log(i, item);
-                // });
-
+                // Add select field for nummber of toppings that was clicked.
                 for (i = 0; i < item.dataset.num_toppings; i++) {
                     let html = `<div class="form-group">
                                     <label for="topping_select_${i}">Choose topping ${i + 1}</label>
                                     <select class="form-control" id="topping_select_${i}" name="topping_select_${i}">
-                                            <option value="topping">topping</option>
+                                            ${options}
                                     </select>
                                 </div>`;
 

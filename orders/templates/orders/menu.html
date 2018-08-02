@@ -53,7 +53,8 @@
         <ul class="menu">
             {% for sic_pizza in sic_pizzas %}
                 <li class="menu_item" data-item="{{ sic_pizza.item }}" data-choice="{{ sic_pizza.choice }}"
-                    data-price="{{ sic_pizza.price }}" data-num_toppings="{{ sic_pizza.num_toppings }}">
+                    data-price="{{ sic_pizza.price }}" data-num_toppings="{{ sic_pizza.num_toppings }}"
+                    data-topping_names="{{ topping_names }}" data-topping_ids="{{ topping_ids }}">
                     With {{ sic_pizza.num_toppings }} toppings
                     <button class="btn btn-green btn-sm" style="float: right;">
                         $ {{ sic_pizza.price }}
@@ -73,7 +74,8 @@
         <ul class="menu">
             {% for reg_pizza in reg_pizzas %}
                 <li class="menu_item" data-item="{{ reg_pizza.item }}" data-choice="{{ reg_pizza.choice }}"
-                    data-price="{{ reg_pizza.price }}" data-num_toppings="{{ reg_pizza.num_toppings }}" data-toppings_options="{{ toppings }}">
+                    data-price="{{ reg_pizza.price }}" data-num_toppings="{{ reg_pizza.num_toppings }}"
+                    data-topping_names="{{ topping_names }}" data-topping_ids="{{ topping_ids }}">
                     With {{ reg_pizza.num_toppings }} toppings
                     <button class="btn btn-green btn-sm" style="float: right;">
                         $ {{ reg_pizza.price }}

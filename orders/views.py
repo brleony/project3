@@ -43,8 +43,8 @@ def menu(request):
     sic_pizzas = Menu.objects.filter(item = 'SIPI').filter(size = 'S').values()
     toppings = Topping.objects.filter(price = 0.00).values()
 
-    # toppings_json.DjangoJSONEncoder().encode(toppings)
-    # print(toppings)
+    topping_names = ",".join([t["topping"] for t in toppings])
+    topping_ids = ",".join([str(t["id"]) for t in toppings])
 
     context = {
         "pastas": pastas,
@@ -54,6 +54,8 @@ def menu(request):
         "reg_pizzas": reg_pizzas,
         "sic_pizzas": sic_pizzas,
         "toppings": toppings,
+        "topping_names": topping_names,
+        "topping_ids": topping_ids
     }
     return render(request, "orders/menu.html", context)
 
@@ -64,14 +66,13 @@ def cart(request):
 
     # Query database for items in current user's cart.
     cart_items = Cart_item.objects.filter
-
     for cart_item in cart_items:
         context["cart_items"].append(
             {"choice":cart_item.choice,
              "item":cart_item.item,
              "size":cart_item.size,
              "price":cart_item.price,
-             "toppings":cart_item.toppings.all()}
+             "toppings": cart_item.toppings.all()}
         )
 
     return render(request, "orders/cart.html", context)
